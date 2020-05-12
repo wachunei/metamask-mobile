@@ -457,6 +457,7 @@ class Main extends PureComponent {
 		showExpandedMessage: false,
 		paymentChannelBalance: null,
 		paymentChannelReady: false
+		dappTransactionModalVisible: false
 	};
 
 	backgroundMode = false;
@@ -887,7 +888,7 @@ class Main extends PureComponent {
 			if (data && data.substr(0, 10) === APPROVE_FUNCTION_SIGNATURE) {
 				this.props.navigation.push('ApproveView');
 			} else {
-				this.props.navigation.push('ApprovalView');
+				this.toggleDappTransactionModal();
 			}
 		}
 	};
@@ -964,6 +965,10 @@ class Main extends PureComponent {
 
 	toggleExpandedMessage = () => {
 		this.setState({ showExpandedMessage: !this.state.showExpandedMessage });
+	};
+
+	toggleDappTransactionModal = () => {
+		this.setState({ dappTransactionModalVisible: !this.state.dappTransactionModalVisible });
 	};
 
 	renderSigningModal = () => {
@@ -1126,6 +1131,12 @@ class Main extends PureComponent {
 	backupAlertPress = () => {
 		this.props.navigation.navigate('AccountBackupStep1');
 	};
+	renderDappTransactionModal = () => (
+		<Approval
+			dappTransactionModalVisible={this.state.dappTransactionModalVisible}
+			toggleDappTransactionModal={this.toggleDappTransactionModal}
+		/>
+	);
 
 	render() {
 		const { isPaymentChannelTransaction, isPaymentRequest } = this.props;
@@ -1149,6 +1160,7 @@ class Main extends PureComponent {
 				{this.renderSigningModal()}
 				{this.renderWalletConnectSessionRequestModal()}
 				{this.renderWalletConnectReturnModal()}
+				{this.state.dappTransactionModalVisible && this.renderDappTransactionModal()}
 			</React.Fragment>
 		);
 	}

@@ -1,6 +1,6 @@
 {
   "name": "metamask",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "private": true,
   "scripts": {
     "watch": "node node_modules/react-native/local-cli/cli.js start",
@@ -94,7 +94,7 @@
     "ethjs-unit": "0.1.6",
     "events": "3.0.0",
     "fuse.js": "3.4.4",
-    "gaba": "1.10.0",
+    "gaba": "1.11.0",
     "https-browserify": "0.0.1",
     "json-rpc-engine": "5.1.5",
     "json-rpc-middleware-stream": "2.1.1",
@@ -170,6 +170,7 @@
   "devDependencies": {
     "@babel/core": "7.3.4",
     "@babel/runtime": "7.5.0",
+    "@metamask/mobile-provider": "^1.2.0",
     "assert": "1.4.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
@@ -188,7 +189,6 @@
     "jest": "24.5.0",
     "jest-serializer": "24.4.0",
     "lint-staged": "8.1.5",
-    "metamask-mobile-provider": "^1.1.0",
     "metro": "0.55.0",
     "metro-react-native-babel-preset": "0.53.0",
     "octonode": "0.9.5",

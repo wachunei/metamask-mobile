@@ -187,9 +187,6 @@ const styles = StyleSheet.create({
 		marginLeft: 8,
 		flex: 1
 	},
-	spendLimitWrapper: {
-		padding: 16
-	},
 	spendLimitTitle: {
 		...fontStyles.bold,
 		color: colors.black,
@@ -529,7 +526,7 @@ class Approve extends PureComponent {
 				</View>
 
 				<KeyboardAwareScrollView>
-					<View style={styles.spendLimitWrapper}>
+					<View>
 						<Text style={styles.spendLimitTitle}>{strings('spend_limit_edition.spend_limit')}</Text>
 						<Text style={styles.spendLimitSubtitle}>
 							{strings('spend_limit_edition.allow')}

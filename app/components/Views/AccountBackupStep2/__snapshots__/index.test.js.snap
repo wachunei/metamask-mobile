@@ -80,7 +80,7 @@ exports[`AccountBackupStep2 should render correctly 1`] = `
         <Text
           style={
             Object {
-              "color": "#000000",
+              "color": "#24292E",
               "fontFamily": "CircularStd-Medium",
               "fontSize": 32,
               "fontWeight": "400",
@@ -105,7 +105,7 @@ exports[`AccountBackupStep2 should render correctly 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000000",
+                  "color": "#24292E",
                   "fontFamily": "CircularStd-Medium",
                   "fontSize": 16,
                   "fontWeight": "400",
@@ -131,7 +131,7 @@ exports[`AccountBackupStep2 should render correctly 1`] = `
           <Text
             style={
               Object {
-                "color": "#000000",
+                "color": "#24292E",
                 "fontFamily": "CircularStd-Medium",
                 "fontSize": 16,
                 "fontWeight": "400",

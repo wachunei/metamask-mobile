@@ -78,7 +78,7 @@ exports[`ReceiveRequest should render correctly 1`] = `
         icon={
           <Icon
             allowFontScaling={false}
-            color="#000000"
+            color="#24292E"
             name="paper-plane"
             size={28}
           />
@@ -98,7 +98,7 @@ exports[`ReceiveRequest should render correctly 1`] = `
         icon={
           <Icon
             allowFontScaling={false}
-            color="#000000"
+            color="#24292E"
             name="qrcode"
             size={32}
           />
@@ -127,7 +127,7 @@ exports[`ReceiveRequest should render correctly 1`] = `
         icon={
           <IconClass
             brand={false}
-            color="#000000"
+            color="#24292E"
             light={false}
             name="hand-holding"
             regular={false}
@@ -150,7 +150,7 @@ exports[`ReceiveRequest should render correctly 1`] = `
         icon={
           <Icon
             allowFontScaling={false}
-            color="#000000"
+            color="#24292E"
             name="credit-card"
             size={32}
           />

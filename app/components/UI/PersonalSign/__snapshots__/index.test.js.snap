@@ -28,7 +28,7 @@ exports[`PersonalSign should render correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#000000",
+              "color": "#24292E",
               "fontFamily": "CircularStd-Medium",
               "fontSize": 14,
               "fontWeight": "400",

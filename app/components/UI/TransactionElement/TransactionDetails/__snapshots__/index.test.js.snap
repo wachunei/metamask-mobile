@@ -145,7 +145,7 @@ exports[`TransactionDetails should render correctly 1`] = `
           address="0x0"
           style={
             Object {
-              "color": "#000000",
+              "color": "#24292E",
               "fontFamily": "CircularStd-Medium",
               "fontSize": 12,
               "fontWeight": "400",
@@ -179,7 +179,7 @@ exports[`TransactionDetails should render correctly 1`] = `
           address="0x1"
           style={
             Object {
-              "color": "#000000",
+              "color": "#24292E",
               "fontFamily": "CircularStd-Medium",
               "fontSize": 12,
               "fontWeight": "400",

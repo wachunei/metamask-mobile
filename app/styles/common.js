@@ -6,13 +6,13 @@
  * Map of color names to HEX values
  */
 export const colors = {
-	fontPrimary: '#000000',
+	fontPrimary: '#24292E',
 	fontSecondary: '#777777',
 	fontTertiary: '#AAAAAA',
 	fontError: '#D73A49',
 	fontWarning: '#f66a0a',
 	primaryFox: '#f66a0a',
-	black: '#000000',
+	black: '#24292E',
 	white: '#FFFFFF',
 	white100: '#F9FAFB',
 	grey600: '#5B5D67',

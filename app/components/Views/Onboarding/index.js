@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 24,
-		color: colors.fontPrimary,
+		color: colors.black,
 		...fontStyles.bold,
 		textAlign: 'center'
 	},
 	subTitle: {
 		fontSize: 16,
-		color: colors.fontPrimary,
+		color: colors.black,
 		...fontStyles.bold,
 		textAlign: 'center',
 		marginBottom: 10
@@ -60,11 +60,11 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		textAlign: 'center',
 		marginBottom: 16,
-		color: colors.fontSecondary,
+		color: colors.black,
 		lineHeight: 20
 	},
 	importWrapper: {
-		marginVertical: 24
+		marginVertical: 16
 	},
 	createWrapper: {
 		marginVertical: 24

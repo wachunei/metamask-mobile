@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 		lineHeight: 19,
 		marginTop: 12,
 		marginBottom: 25,
-		color: colors.grey500,
+		color: colors.black,
 		justifyContent: 'center',
 		textAlign: 'center',
 		...fontStyles.normal

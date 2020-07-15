@@ -11,10 +11,10 @@ import AppConstants from '../../../core/AppConstants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import StyledButton from '../StyledButton';
 import Networks from '../../../util/networks';
-import Device from '../../../util/Device';
 import Modal from 'react-native-modal';
 import decodeTransaction from './utils';
 import { TRANSACTION_TYPES } from '../../../util/transactions';
+import ListItem from '../../Base/ListItem';
 
 const styles = StyleSheet.create({
 	row: {
@@ -26,50 +26,12 @@ const styles = StyleSheet.create({
 	rowContent: {
 		padding: 0
 	},
-	rowOnly: {
-		padding: 15,
-		minHeight: Device.isIos() ? 95 : 100
-	},
-	date: {
-		color: colors.fontSecondary,
-		fontSize: 12,
-		marginBottom: 10,
-		...fontStyles.normal
-	},
-	info: {
-		flex: 1,
-		marginLeft: 15
-	},
-	address: {
-		fontSize: 15,
-		color: colors.fontPrimary,
-		...fontStyles.normal
-	},
 	status: {
 		marginTop: 4,
 		fontSize: 12,
 		letterSpacing: 0.5,
 		...fontStyles.bold
 	},
-	amount: {
-		fontSize: 15,
-		color: colors.fontPrimary,
-		...fontStyles.normal
-	},
-	amountFiat: {
-		fontSize: 12,
-		color: colors.fontSecondary,
-		textTransform: 'uppercase',
-		...fontStyles.normal
-	},
-	amounts: {
-		flex: 0.6,
-		alignItems: 'flex-end'
-	},
-	subRow: {
-		flexDirection: 'row'
-	},
-
 	actionContainerStyle: {
 		height: 25,
 		width: 70,
@@ -82,11 +44,6 @@ const styles = StyleSheet.create({
 		fontSize: 10,
 		padding: 0,
 		paddingHorizontal: 10
-	},
-	transactionActionsContainer: {
-		flexDirection: 'row',
-		paddingTop: 10,
-		paddingLeft: 40
 	},
 	modalContainer: {
 		width: '90%',
@@ -117,10 +74,6 @@ const styles = StyleSheet.create({
 		...fontStyles.bold
 	},
 	closeIcon: { paddingTop: 4, position: 'absolute', right: 16 },
-	iconWrapper: {
-		flexDirection: 'row',
-		alignItems: 'center'
-	},
 	icon: {
 		width: 28,
 		height: 28
@@ -270,12 +223,9 @@ class TransactionElement extends PureComponent {
 		const { tx, selectedAddress } = this.props;
 		const incoming = safeToChecksumAddress(tx.transaction.to) === selectedAddress;
 		const selfSent = incoming && safeToChecksumAddress(tx.transaction.from) === selectedAddress;
-		return (
-			<Text style={styles.date}>
-				{(!incoming || selfSent) && tx.transaction.nonce && `#${parseInt(tx.transaction.nonce, 16)}  - `}
-				{`${toDateFormat(tx.time)}`}
-			</Text>
-		);
+		return `${
+			(!incoming || selfSent) && tx.transaction.nonce ? `#${parseInt(tx.transaction.nonce, 16)}  - ` : ''
+		}${toDateFormat(tx.time)}`;
 	};
 
 	renderTxElementIcon = (transactionElement, status) => {
@@ -304,11 +254,7 @@ class TransactionElement extends PureComponent {
 				icon = isFailedTransaction ? transactionIconApproveFailed : transactionIconApprove;
 				break;
 		}
-		return (
-			<View style={styles.iconWrapper}>
-				<Image source={icon} style={styles.icon} resizeMode="stretch" />
-			</View>
-		);
+		return <Image source={icon} style={styles.icon} resizeMode="stretch" />;
 	};
 
 	renderStatusText = status => {
@@ -343,28 +289,26 @@ class TransactionElement extends PureComponent {
 		const renderTxActions = status === 'submitted' || status === 'approved';
 		const renderSpeedUpAction = safeToChecksumAddress(to) !== AppConstants.CONNEXT.CONTRACTS[networkId];
 		return (
-			<View style={styles.rowOnly}>
-				{this.renderTxTime()}
-				<View style={styles.subRow}>
-					{this.renderTxElementIcon(transactionElement, status)}
-					<View style={styles.info} numberOfLines={1}>
-						<Text numberOfLines={1} style={styles.address}>
-							{actionKey}
-						</Text>
+			<ListItem>
+				<ListItem.Date>{this.renderTxTime()}</ListItem.Date>
+				<ListItem.Content>
+					<ListItem.Icon>{this.renderTxElementIcon(transactionElement, status)}</ListItem.Icon>
+					<ListItem.Body>
+						<ListItem.Title numberOfLines={1}>{actionKey}</ListItem.Title>
 						{this.renderStatusText(status)}
-					</View>
-					<View style={styles.amounts}>
-						<Text style={styles.amount}>{value}</Text>
-						<Text style={styles.amountFiat}>{fiatValue}</Text>
-					</View>
-				</View>
+					</ListItem.Body>
+					<ListItem.Amounts>
+						<ListItem.Amount>{value}</ListItem.Amount>
+						<ListItem.FiatAmount>{fiatValue}</ListItem.FiatAmount>
+					</ListItem.Amounts>
+				</ListItem.Content>
 				{!!renderTxActions && (
-					<View style={styles.transactionActionsContainer}>
+					<ListItem.Actions>
 						{renderSpeedUpAction && this.renderSpeedUpButton()}
 						{this.renderCancelButton()}
-					</View>
+					</ListItem.Actions>
 				)}
-			</View>
+			</ListItem>
 		);
 	};
 

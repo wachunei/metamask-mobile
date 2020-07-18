@@ -202,6 +202,9 @@
 		"logout_to_import_seed": "Primero debes cerrar la sesión para poder importar una nueva frase semilla.",
 		"ready_to_explore": "¿Listo para explorar aplicaciones blockchain?"
 	},
+	"activity_view": {
+		"title": "Actividad"
+	},
 	"transactions_view": {
 		"title": "Transacciones"
 	},
@@ -506,7 +509,12 @@
 		"asset": "Activo",
 		"balance": "Balance",
 		"not_enough_for_gas": "Tienes 0 ETH en tu cuenta para pagar por la tarifa de transacción. Compra ETH o deposítalo desde otra cuenta.",
-		"send": "Enviar"
+		"send": "Enviar",
+		"confirmed": "Confirmada",
+		"pending": "Pendiente",
+		"submitted": "Enviada",
+		"failed": "Fallida",
+		"cancelled": "Cancelada"
 	},
 	"custom_gas": {
 		"advanced_options": "Mostrar opciones avanzadas",
@@ -634,7 +642,10 @@
 		"address_copied_to_clipboard": "La dirección fue copiada al portapapeles",
 		"transaction_error": "Error de transacción",
 		"address_to_placeholder": "Buscar, dirección pública (0x), o ENS",
-		"address_from_balance": "Balance:"
+		"address_from_balance": "Balance:",
+		"status": "Estado",
+		"date": "Fecha",
+		"nonce": "Nonce"
 	},
 	"address_book": {
 		"recents": "Recientes",
@@ -1071,9 +1082,11 @@
 	},
 	"fiat_on_ramp": {
 		"buy_eth": "Comprar ETH",
+		"purchased_currency": "Compra de {{currency}}",
 		"network_not_supported": "La red actual no esta soportada",
 		"switch_network": "Por favor cambiar a Mainnet",
 		"switch": "Cambiar",
+		"purchases": "Compras",
 		"purchase_method": "Método de pago",
 		"amount_to_buy": "Monto a comprar",
 		"transak_webview_title": "Transak",
@@ -1122,6 +1135,16 @@
 			"purchase_completed_description": "Su {{currency}} está disponible",
 			"purchase_pending_title": "Procesando su compra de {{currency}}",
 			"purchase_pending_description": "Su depósito está en progreso"
-		}
+		},
+		"date": "Fecha",
+		"from": "Desde",
+		"to": "Para",
+		"status": "Estado",
+		"completed": "Realizada",
+		"pending": "Pendiente",
+		"failed": "Fallida",
+		"cancelled": "Cancelada",
+		"amount": "Cantidad",
+		"total_amount": "Cantidad total"
 	}
 }

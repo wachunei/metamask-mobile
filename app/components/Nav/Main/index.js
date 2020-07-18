@@ -30,7 +30,6 @@ import NetworkSettings from '../../Views/Settings/NetworksSettings/NetworkSettin
 import AppInformation from '../../Views/Settings/AppInformation';
 import Contacts from '../../Views/Settings/Contacts';
 import Wallet from '../../Views/Wallet';
-import TransactionsView from '../../Views/TransactionsView';
 import SyncWithExtension from '../../Views/SyncWithExtension';
 import Asset from '../../Views/Asset';
 import AddAsset from '../../Views/AddAsset';
@@ -108,6 +107,7 @@ import {
 } from '../../../actions/notification';
 import { toggleDappTransactionModal, toggleApproveModal } from '../../../actions/modals';
 import AccountApproval from '../../UI/AccountApproval';
+import ActivityView from '../../Views/ActivityView';
 
 const styles = StyleSheet.create({
 	flex: {
@@ -164,7 +164,7 @@ const MainNavigator = createStackNavigator(
 					}),
 					TransactionsHome: createStackNavigator({
 						TransactionsView: {
-							screen: TransactionsView
+							screen: ActivityView
 						}
 					}),
 					PaymentChannelHome: createStackNavigator({

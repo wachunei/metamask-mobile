@@ -224,6 +224,9 @@
 		"logout_to_import_seed": "You need to log out first in order to import a seed phrase.",
 		"ready_to_explore": "Ready to start exploring blockchain applications?"
 	},
+	"activity_view": {
+		"title": "Activity"
+	},
 	"transactions_view": {
 		"title": "Transactions"
 	},
@@ -538,7 +541,12 @@
 		"asset": "Asset",
 		"balance": "Balance",
 		"not_enough_for_gas": "You have 0 ETH in your account to pay for transaction fees. Buy some ETH or deposit from another account.",
-		"send": "Send"
+		"send": "Send",
+		"confirmed": "Confirmed",
+		"pending": "Pending",
+		"submitted": "Submitted",
+		"failed": "Failed",
+		"cancelled": "Cancelled"
 	},
 	"custom_gas": {
 		"total": "Total",
@@ -1151,9 +1159,11 @@
 	},
 	"fiat_on_ramp": {
 		"buy_eth": "Buy ETH",
+		"purchased_currency": "Purchased {{currency}}",
 		"network_not_supported": "Current network not supported",
 		"switch_network": "Please switch to Mainnet",
 		"switch": "Switch",
+		"purchases": "Purchases",
 		"purchase_method": "Purchase Method",
 		"amount_to_buy": "Amount to buy",
 		"transak_webview_title": "Transak",
@@ -1202,6 +1212,16 @@
 			"purchase_completed_description": "Your {{currency}} is now available",
 			"purchase_pending_title": "Processing your purchase of {{currency}}",
 			"purchase_pending_description": "Your deposit is in progress"
-		}
+		},
+		"date": "Date",
+		"from": "From",
+		"to": "To",
+		"status": "Status",
+		"completed": "Completed",
+		"pending": "Pending",
+		"failed": "Failed",
+		"cancelled": "Canceled",
+		"amount": "Amount",
+		"total_amount": "Total amount"
 	}
 }

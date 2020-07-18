@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Device from '../../util/Device';
 import { StyleSheet, View } from 'react-native';
-import Text from './Text';
+import Device from '../../util/Device';
 import { colors, fontStyles } from '../../styles/common';
+import Text from './Text';
+
 const styles = StyleSheet.create({
 	wrapper: {
 		padding: 15,
@@ -72,6 +73,8 @@ ListItem.Amounts = ListItemAmounts;
 ListItem.Amount = ListItemAmount;
 ListItem.FiatAmount = ListItemFiatAmount;
 
+export default ListItem;
+
 /**
  * Any other external style defined in props will be applied
  */
@@ -107,5 +110,3 @@ ListItemAmount.propTypes = {
 ListItemFiatAmount.propTypes = {
 	style: stylePropType
 };
-
-export default ListItem;

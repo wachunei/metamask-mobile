@@ -1,20 +1,21 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableHighlight, StyleSheet, Text, View, Image } from 'react-native';
-import { colors, fontStyles } from '../../../styles/common';
+import { TouchableHighlight, StyleSheet, Image } from 'react-native';
+import { colors } from '../../../styles/common';
 import { strings } from '../../../../locales/i18n';
 import { toDateFormat } from '../../../util/date';
 import TransactionDetails from './TransactionDetails';
 import { safeToChecksumAddress } from '../../../util/address';
 import { connect } from 'react-redux';
 import AppConstants from '../../../core/AppConstants';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import StyledButton from '../StyledButton';
 import Networks from '../../../util/networks';
 import Modal from 'react-native-modal';
 import decodeTransaction from './utils';
 import { TRANSACTION_TYPES } from '../../../util/transactions';
 import ListItem from '../../Base/ListItem';
+import StatusText from '../../Base/StatusText';
+import DetailsModal from '../../Base/DetailsModal';
 
 const styles = StyleSheet.create({
 	row: {
@@ -22,15 +23,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		borderBottomWidth: StyleSheet.hairlineWidth,
 		borderColor: colors.grey100
-	},
-	rowContent: {
-		padding: 0
-	},
-	status: {
-		marginTop: 4,
-		fontSize: 12,
-		letterSpacing: 0.5,
-		...fontStyles.bold
 	},
 	actionContainerStyle: {
 		height: 25,
@@ -45,54 +37,23 @@ const styles = StyleSheet.create({
 		padding: 0,
 		paddingHorizontal: 10
 	},
-	modalContainer: {
-		width: '90%',
-		backgroundColor: colors.white,
-		borderRadius: 10
-	},
-	modal: {
-		margin: 0,
-		width: '100%'
-	},
-	modalView: {
-		flexDirection: 'column',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	titleWrapper: {
-		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderColor: colors.grey100,
-		flexDirection: 'row'
-	},
-	title: {
-		flex: 1,
-		textAlign: 'center',
-		fontSize: 18,
-		marginVertical: 12,
-		marginHorizontal: 24,
-		color: colors.fontPrimary,
-		...fontStyles.bold
-	},
-	closeIcon: { paddingTop: 4, position: 'absolute', right: 16 },
 	icon: {
 		width: 28,
 		height: 28
-	},
-	statusText: {
-		fontSize: 12,
-		...fontStyles.normal
 	}
 });
 
-const transactionIconApprove = require('../../../images/transaction-icons/approve.png'); // eslint-disable-line
-const transactionIconInteraction = require('../../../images/transaction-icons/interaction.png'); // eslint-disable-line
-const transactionIconSent = require('../../../images/transaction-icons/send.png'); // eslint-disable-line
-const transactionIconReceived = require('../../../images/transaction-icons/receive.png'); // eslint-disable-line
+/* eslint-disable import/no-commonjs */
+const transactionIconApprove = require('../../../images/transaction-icons/approve.png');
+const transactionIconInteraction = require('../../../images/transaction-icons/interaction.png');
+const transactionIconSent = require('../../../images/transaction-icons/send.png');
+const transactionIconReceived = require('../../../images/transaction-icons/receive.png');
 
-const transactionIconApproveFailed = require('../../../images/transaction-icons/approve-failed.png'); // eslint-disable-line
-const transactionIconInteractionFailed = require('../../../images/transaction-icons/interaction-failed.png'); // eslint-disable-line
-const transactionIconSentFailed = require('../../../images/transaction-icons/send-failed.png'); // eslint-disable-line
-const transactionIconReceivedFailed = require('../../../images/transaction-icons/receive-failed.png'); // eslint-disable-line
+const transactionIconApproveFailed = require('../../../images/transaction-icons/approve-failed.png');
+const transactionIconInteractionFailed = require('../../../images/transaction-icons/interaction-failed.png');
+const transactionIconSentFailed = require('../../../images/transaction-icons/send-failed.png');
+const transactionIconReceivedFailed = require('../../../images/transaction-icons/receive-failed.png');
+/* eslint-enable import/no-commonjs */
 
 /**
  * View that renders a transaction item part of transactions list
@@ -195,20 +156,6 @@ class TransactionElement extends PureComponent {
 		this.mounted = false;
 	}
 
-	getStatusStyle(status) {
-		switch (status) {
-			case 'confirmed':
-				return [styles.statusText, { color: colors.green400 }];
-			case 'pending':
-			case 'submitted':
-				return [styles.statusText, { color: colors.orange }];
-			case 'failed':
-			case 'cancelled':
-				return [styles.statusText, { color: colors.red }];
-		}
-		return null;
-	}
-
 	onPressItem = () => {
 		const { tx, i, onPressItem } = this.props;
 		onPressItem(tx.id, i);
@@ -257,20 +204,6 @@ class TransactionElement extends PureComponent {
 		return <Image source={icon} style={styles.icon} resizeMode="stretch" />;
 	};
 
-	renderStatusText = status => {
-		status = status && status.charAt(0).toUpperCase() + status.slice(1);
-		switch (status) {
-			case 'Confirmed':
-				return <Text style={[styles.status, { color: colors.green400 }]}>{status}</Text>;
-			case 'Pending':
-			case 'Submitted':
-				return <Text style={[styles.status, { color: colors.orange }]}>{status}</Text>;
-			case 'Failed':
-			case 'Cancelled':
-				return <Text style={[styles.status, { color: colors.red }]}>{status}</Text>;
-		}
-	};
-
 	/**
 	 * Renders an horizontal bar with basic tx information
 	 *
@@ -295,7 +228,7 @@ class TransactionElement extends PureComponent {
 					<ListItem.Icon>{this.renderTxElementIcon(transactionElement, status)}</ListItem.Icon>
 					<ListItem.Body>
 						<ListItem.Title numberOfLines={1}>{actionKey}</ListItem.Title>
-						{this.renderStatusText(status)}
+						<StatusText status={status} />
 					</ListItem.Body>
 					<ListItem.Amounts>
 						<ListItem.Amount>{value}</ListItem.Amount>
@@ -356,48 +289,40 @@ class TransactionElement extends PureComponent {
 		const { tx } = this.props;
 		const { detailsModalVisible, transactionElement, transactionDetails } = this.state;
 
-		if (!transactionElement || !transactionDetails) return <View />;
+		if (!transactionElement || !transactionDetails) return null;
 		return (
-			<View>
+			<>
 				<TouchableHighlight
 					style={styles.row}
 					onPress={this.onPressItem}
 					underlayColor={colors.grey000}
 					activeOpacity={1}
 				>
-					<View style={styles.rowContent}>{this.renderTxElement(transactionElement)}</View>
+					{this.renderTxElement(transactionElement)}
 				</TouchableHighlight>
 				<Modal
 					isVisible={detailsModalVisible}
-					style={styles.modal}
 					onBackdropPress={this.onCloseDetailsModal}
 					onBackButtonPress={this.onCloseDetailsModal}
 					onSwipeComplete={this.onCloseDetailsModal}
 					swipeDirection={'down'}
 				>
-					<View style={styles.modalView}>
-						<View style={styles.modalContainer}>
-							<View style={styles.titleWrapper}>
-								<Text style={styles.title} onPress={this.onCloseDetailsModal}>
-									{transactionElement.actionKey}
-								</Text>
-								<Ionicons
-									onPress={this.onCloseDetailsModal}
-									name={'ios-close'}
-									size={38}
-									style={styles.closeIcon}
-								/>
-							</View>
-							<TransactionDetails
-								transactionObject={tx}
-								transactionDetails={transactionDetails}
-								navigation={this.props.navigation}
-								close={this.onCloseDetailsModal}
-							/>
-						</View>
-					</View>
+					<DetailsModal>
+						<DetailsModal.Header>
+							<DetailsModal.Title onPress={this.onCloseDetailsModal}>
+								{transactionElement.actionKey}
+							</DetailsModal.Title>
+							<DetailsModal.CloseIcon onPress={this.onCloseDetailsModal} />
+						</DetailsModal.Header>
+						<TransactionDetails
+							transactionObject={tx}
+							transactionDetails={transactionDetails}
+							navigation={this.props.navigation}
+							close={this.onCloseDetailsModal}
+						/>
+					</DetailsModal>
 				</Modal>
-			</View>
+			</>
 		);
 	}
 }
